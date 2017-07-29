@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Money Time",
+  "description": "Convert amazon prices in Money Time",
+  "version": "1.0",
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "js": ["ready.js", "main.js"]
+    }
+    
+  ]
+}

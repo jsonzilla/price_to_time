@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body { 
+                min-width: 420px; 
+                overflow-x: hidden; 
+                font-family: Arial, sans-serif; 
+                font-size: 12px; 
+            }
+            input, textarea { 
+                width: 420px; 
+            }
+            input#save { 
+                font-weight: bold; width: auto; 
+            }
+        </style>
+        <script src="main.js"></script>
+    </head>
+    <body>
+        <form id="addsalary">
+            <p><label for="title">Salary $</label><input type="text" id="salary" name="salary" size="8" value="3100" /></p>
+            <p><label for="title">MonthHours</label><input type="text" id="monthHours" name="monthHours" size="8" value="160" /></p>
+            <p>
+            <input id="save" type="submit" value="Save Money!" />
+            </p>
+        </form>
+    </body>
+</html>
