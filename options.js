@@ -1,13 +1,19 @@
-var defaultSalary = "3100";
-var defaultMonthHours = "3100";
+const defaultSalary = "200000";
+const defaultMonthHours = "220";
+const defaultDayHours = "8";
+
+function isNumber(obj) { 
+    return !isNaN(parseFloat(obj)) 
+}
 
 function loadOptions() {
 	var Salary = localStorage["Salary"];
-    var MountHours = localStorage["MonthHours"];
-	if (Salary == undefined || (!isNumber(Salary)) {
+    var MountHours = localStorage["hour_work_month"];
+    var MountHours = localStorage["hour_work_day"];
+	if (Salary == undefined || (!isNumber(Salary))) {
 		Salary = defaultSalary;
 	}
-    if (MountHours == undefined || (!isNumber(MountHours)) {
+    if (MountHours == undefined || (!isNumber(MountHours))) {
 		MountHours = defaultMonthHours;
 	}
     document.getElementsByTagName("input")[0].value = Salary;
