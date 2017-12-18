@@ -25,7 +25,12 @@ function concatNonZero(value, sufix){
     return value !== 0 ? `${value}${sufix} ` : ' ';
 }
 
+function isNumber(obj) { 
+    return !isNaN(parseFloat(obj)) 
+}
+
 function secToTimeDWHMS(a, hourOfWorkPerDay) {
+    if (!isNumber(a)) return "";
     const d = daysWork(a, hourOfWorkPerDay);
     const h = hours(d.remainder);
     const m = minutes(h.remainder);
@@ -35,6 +40,7 @@ function secToTimeDWHMS(a, hourOfWorkPerDay) {
 }
 
 function secToTimeDHMS(a) {
+    if (!isNumber(a)) return "";
     const d = days(a);
     const h = hours(d.remainder);
     const m = minutes(h.remainder);
@@ -44,6 +50,7 @@ function secToTimeDHMS(a) {
 }
 
 function secToTimeHMS(a) {
+    if (!isNumber(a)) return "";
     const h = hours(a);
     const m = minutes(h.remainder);
     const s = Math.floor(m.remainder);
@@ -85,12 +92,26 @@ function priceToTime(elementClasses, timeCurrency, hourOfWorkPerDay) {
 }
 
 function runChange() {
-    const salary = localStorage["salary"];
-    const mountHours = localStorage["hour_work_month"];
+    let salary
+    let mountHours
+    let hourOfWorkPerDay
+
+    // chrome.storage.sync.get(['salary', 'hour_work_day', 'hour_work_month'], function(items) {
+    //     console.log('Settings retrieved');
+    //     salary = items[0];
+    //     hourOfWorkPerDay = items[1];
+    //     mountHours = items[2];
+        
+    //     console.log(str = JSON.stringify(items, null, 4))
+    // });
+
+    chrome.storage.sync.get("salary", function (obj) {
+        salary = obj;
+    });
+
     const elementClass = ['a-color-price','offer-price','kfs-price','a-text-strike','price', 'new-price'];
 
-    const hourOfWorkPerDay = localStorage["hour_work_day"] ?  localStorage["hour_work_day"]: 8;
-    const timeCurrency = monthToSecondsPrice(salary ? salary : 358000, mountHours ? mountHours : 200);
+    const timeCurrency = monthToSecondsPrice(salary, mountHours);
     for (let e = 0; e < elementClass.length; e++) {
        priceToTime(elementClass[e], timeCurrency, hourOfWorkPerDay);
     }
@@ -100,12 +121,8 @@ ready(function(){
    runChange();
 });
 (function loop(i) {          
-   setTimeout(function () {   
+   setTimeout(function () { ;  
       runChange();
       if (--i) loop(i); 
    }, 5000)
 })(30);
-
-// chrome.browserAction.onClicked.addListener(function(tab){
-//     chrome.tabs.create({ url: chrome.extension.getUrl('hello.html') })
-// })

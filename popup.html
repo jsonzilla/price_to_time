@@ -52,35 +52,20 @@
         padding:10px;
       }
     </style>
-
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-    -->
     <script src="popup.js"></script>
   </head>
 
   <body>
     <h1>Background Color Changer</h1>
     <div id="container">
-
-      <form>
+      <form id="data">
         <label>Salary</label>
         <input type="number" name="salary" id="salary" required>
         <label>Hours of work in month</label>
         <input type="number" name="hour_work_month" id="hour_work_month" required>
         <label>hour of work in a regular day</label>
         <input type="number" name="hour_work_day" id="hour_work_day" required>
-        <span>Choose a color</span>
-        <select id="dropdown">
-          <option selected disabled hidden value=''></option>
-          <option value="white">White</option>
-          <option value="pink">Pink</option>
-          <option value="green">Green</option>
-          <option value="yellow">Yellow</option>
-        </select>
+        <button id="set">Set</button>
       </form>
     </div>
   </body>
