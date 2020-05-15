@@ -44,8 +44,8 @@ function seconds_currency(salary, hours_work) {
 }
 
 function get_cents(price) {    
-    const regex_cents = new RegExp(/[^0-9|,|.]/, "gm");
-    const regex_separator = new RegExp(/[,|.]/, "gm");
+    const regex_cents = new RegExp(/[^0-9,.]/, "gm");
+    const regex_separator = new RegExp(/[,.]/, "gm");
 
     return parseFloat(price.replace(regex_cents,'').replace(regex_separator,''));
 }
@@ -65,7 +65,7 @@ function extract_prices(price_str) {
     return Array.from(price_str.replace(regex_percent, '')
     	.matchAll(regex_prices), x => x[0])
      	.map(price => get_cents(price))
-        .filter(price => price !== NaN && price !== 0)
+        .filter(price => price !== undefined && price !== 0)
 }
 
 function assembly_price_time(node, prices, time_currency, hours_work_week) {  
