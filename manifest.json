@@ -1,23 +1,33 @@
 {
-  "manifest_version": 2,
 
-  "name": "Price2Time",
   "description": "Give you knowledge about how much cost of your time to buy a product",
-  "version": "0.0.1",
-  //"options_page": "options.html",
-  "browser_action": {
-    //"default_icon": "icon.png",
-    "default_popup": "popup.html"
+  "manifest_version": 2,
+  "name": "Price2Time",
+  "version": "1.0.1",
+  "homepage_url": "https://github.com/amorvincitomnia/Price2Time/",
+  "icons": {
+    "48": "icons/icon-48.png"
   },
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
+
   "content_scripts": [
     {
-      "matches": ["http://*/*","https://*/*"],
-      "js": ["ready.js", "main.js"]
+      "matches": ["*://*.amazon.com.br/*", "*://*.amazon.com/*"],
+      "js": ["price2time.js"]
     }
-    
-  ]
+  ], 
+
+  "options_ui": {
+    "page": "options/options.html"
+  },
+
+  "permissions": [   
+    "storage"
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cardos.jeison@gmail.com",
+      "strict_min_version": "54.0"
+    }
+  }
 }
