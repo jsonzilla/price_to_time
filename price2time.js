@@ -69,7 +69,7 @@ function extract_prices(price_str) {
 }
 
 function assembly_price_time(node, prices, time_currency, hours_work_week) {  
-    node.innerText += prices.map(price => `${secs_dwhms(price / time_currency, hours_work_week)}`)
+    node.innerText += " " + prices.map(price => `${secs_dwhms(price / time_currency, hours_work_week)}`)
       .join("-")
 }
 
@@ -83,56 +83,47 @@ function price_2_time(filter, time_currency, hours_work_week) {
         })
 }
 
+function parseFilter(filter_str) {
+    list = filter_str.split(',')
+    return list.map(x => x.trim())
+}
+
 // extension config
-function on_got(config) {
-    salary = parseInt(config.salary, 10);
-    month_hours = parseInt(config.month_hours, 10);
-    hour_work_per_day = parseInt(config.hour_work_per_day, 10);
+function run_convert(config) {
+    if (Object.keys(config).length === 0) {
+        save_default_config(config);
+    }
+    else {    
+        salary = parseInt(extract_prices(config.salary)[0], 10);
+        month_hours = parseFloat(config.month_hours, 10);
+        hour_work_per_day = parseFloat(config.hour_work_per_day, 10);
+        filter = parseFilter(config.filter)
 
-    const filter = [
-        "a-color-price",
-        "offer-price",
-        "kfs-price",
-        "a-text-strike",
-        "price",
-        "new-price'",
-        "a-price",
-        "dealPriceText",
-        "price_inside_buybox"]
-
-    const time_currency = seconds_currency(salary, month_hours);
-    for (let e = 0; e < filter.length; e++) {
-        price_2_time(filter[e], time_currency, hour_work_per_day);
+        const time_currency = seconds_currency(salary, month_hours);
+        filter.map(x => { price_2_time(x, time_currency, hour_work_per_day) });
     }
 }
   
-function on_error(error) {
-    console.log(`Error: ${error}`);
-}
-
 function run_change() {    
-    let config = browser.storage.local.get();
-    config.then(on_got, on_error);
+    browser.storage.local.get().then(run_convert, save_default_config);
 }
 
-function save_default_config() {
-    const default_settings = {
-        salary : "450000",
-        month_hours : "160",
-        hour_work_per_day : "8"
+function save_default_config(config) {
+    if (Object.keys(config).length === 0) {
+        const default_settings = {
+            salary : "2.500,00",
+            month_hours : "160",
+            hour_work_per_day : "8.5",
+            filter : "a-color-price, offer-price, kfs-price, a-text-strike, price, new-price, a-price, dealPriceText, price_inside_buybox"
+        }
+        browser.storage.local.set(default_settings)
     }
-
-    browser.storage.local.set(default_settings);    
 }
 
-// loop
-
-save_default_config();
 run_change();
-
 (function loop(i) {          
     setTimeout(function () { ;  
        run_change();
        if (--i) loop(i); 
-    }, 5000)
+    }, 2500)
 })(30);

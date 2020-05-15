@@ -25,6 +25,11 @@ body {
     padding: 0.2em 0;
   }
   
+  input {
+    display: block;
+    padding: 0.2em 0;
+  }
+
   label:hover {
     background-color: #EAEFF2;
   }
