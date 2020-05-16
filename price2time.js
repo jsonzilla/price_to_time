@@ -84,8 +84,7 @@ function price_2_time(filter, time_currency, hours_work_week) {
 }
 
 function parseFilter(filter_str) {
-    list = filter_str.split(',')
-    return list.map(x => x.trim())
+    return filter_str.split(',').map(x => x.trim())
 }
 
 // extension config
@@ -94,10 +93,10 @@ function run_convert(config) {
         save_default_config(config);
     }
     else {    
-        salary = parseInt(extract_prices(config.salary)[0], 10);
-        month_hours = parseFloat(config.month_hours, 10);
-        hour_work_per_day = parseFloat(config.hour_work_per_day, 10);
-        filter = parseFilter(config.filter)
+        const salary = parseInt(extract_prices(config.salary)[0], 10);
+        const month_hours = parseFloat(config.month_hours, 10);
+        const hour_work_per_day = parseFloat(config.hour_work_per_day, 10);
+        const filter = parseFilter(config.filter)
 
         const time_currency = seconds_currency(salary, month_hours);
         filter.map(x => { price_2_time(x, time_currency, hour_work_per_day) });
