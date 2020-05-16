@@ -43,15 +43,18 @@ function seconds_currency(salary, hours_work) {
     return salary / (hours_work * 3600.0);
 }
 
-function get_cents(price) {    
+function get_cents(price_str) {    
     const regex_cents = new RegExp(/[^0-9,.]/, "gm");
     const regex_separator = new RegExp(/[,.]/, "gm");
+    const regex_have_cents = new RegExp(/[,|.]([0-9]{2})$/, "gm")
 
-    return parseFloat(price.replace(regex_cents,'').replace(regex_separator,''));
+    let price = parseFloat(price_str.replace(regex_cents,'').replace(regex_separator,''))
+    return (price_str.match(regex_have_cents) == undefined ? price * 100.0 : price);
 }
 
 function has_p2t(node) {
-    return (node.className.indexOf('p2t') !== -1);
+    const regex_end_seconds = new RegExp(/[0-9][dhms]/,"gi")
+    return node.className.indexOf('p2t') !== -1 && node.innerText.match(regex_end_seconds) != undefined;
 }
 
 function set_p2t(node) {
@@ -59,13 +62,13 @@ function set_p2t(node) {
 }
 
 function extract_prices(price_str) {
-    const regex_percent = new RegExp(/(\(.*\)+)/,"gm");
+    const regex_percent = new RegExp(/(\(.*\)+)|(\d[\.,\d]+)%/,"gm");
     const regex_prices = new RegExp(/(\d[\.,\d]+)/,"gm");
 
     return Array.from(price_str.replace(regex_percent, '')
     	.matchAll(regex_prices), x => x[0])
      	.map(price => get_cents(price))
-        .filter(price => price !== undefined && price !== 0)
+        .filter(price => price != undefined && price !== 0)
 }
 
 function assembly_price_time(node, prices, time_currency, hours_work_week) {  
@@ -84,8 +87,8 @@ function price_2_time(filter, time_currency, hours_work_week) {
 }
 
 function parseFilter(filter_str) {
-    list = filter_str.split(',')
-    return list.map(x => x.trim())
+    return filter_str.split(',')
+        .map(x => x.trim())
 }
 
 // extension config
@@ -94,10 +97,10 @@ function run_convert(config) {
         save_default_config(config);
     }
     else {    
-        salary = parseInt(extract_prices(config.salary)[0], 10);
-        month_hours = parseFloat(config.month_hours, 10);
-        hour_work_per_day = parseFloat(config.hour_work_per_day, 10);
-        filter = parseFilter(config.filter)
+        const salary = parseInt(extract_prices(config.salary)[0], 10);
+        const month_hours = parseFloat(config.month_hours);
+        const hour_work_per_day = parseFloat(config.hour_work_per_day);
+        let filter = parseFilter(config.filter)
 
         const time_currency = seconds_currency(salary, month_hours);
         filter.map(x => { price_2_time(x, time_currency, hour_work_per_day) });
@@ -114,7 +117,10 @@ function save_default_config(config) {
             salary : "2.500,00",
             month_hours : "160",
             hour_work_per_day : "8.5",
-            filter : "a-color-price, offer-price, kfs-price, a-text-strike, price, new-price, a-price, dealPriceText, price_inside_buybox"
+            filter : `a-color-price, offer-price, 
+                    kfs-price, a-text-strike, price, new-price, a-price, 
+                    dealPriceText, price_inside_buybox, hl-item__displayPrice,
+                    sales-price, price-tag-fraction, price__fraction`
         }
         browser.storage.local.set(default_settings)
     }

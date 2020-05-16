@@ -3,7 +3,7 @@
   "description": "Give you knowledge about how much cost of your time to buy a product",
   "manifest_version": 2,
   "name": "Price2Time",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage_url": "https://github.com/amorvincitomnia/Price2Time/",
   "icons": {
     "48": "icons/icon-48.png"
@@ -11,7 +11,12 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.amazon.com.br/*", "*://*.amazon.com/*"],
+      "matches": [
+        "*://*.amazon.com.br/*", 
+        "*://*.amazon.com/*",
+        "*://*.mercadolivre.com.br/*",
+        "*://*.submarino.com.br/*" 
+      ],
       "js": ["price2time.js"]
     }
   ], 
