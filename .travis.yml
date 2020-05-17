@@ -5,10 +5,4 @@ before_script:
   - npm install --save-dev jest
   - npm install --global web-ext
   - web-ext --config=config.js build
-deploy:
-  provider: releases
-  api_key: GITHUB_TOKEN
-  file: "./web-ext-artifacts/price2time-*.zip"
-  skip_cleanup: true
-  draft: true
 
