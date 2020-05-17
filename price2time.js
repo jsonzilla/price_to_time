@@ -86,9 +86,10 @@ function price_2_time(filter, time_currency, hours_work_week) {
         })
 }
 
-function parseFilter(filter_str) {
+function parse_filter(filter_str) {
     return filter_str.split(',')
         .map(x => x.trim())
+        .filter(x => x !== "")
 }
 
 // extension config
@@ -100,15 +101,17 @@ function run_convert(config) {
         const salary = parseInt(extract_prices(config.salary)[0], 10);
         const month_hours = parseFloat(config.month_hours);
         const hour_work_per_day = parseFloat(config.hour_work_per_day);
-        let filter = parseFilter(config.filter)
+        let filter = parse_filter(config.filter)
 
         const time_currency = seconds_currency(salary, month_hours);
         filter.map(x => { price_2_time(x, time_currency, hour_work_per_day) });
     }
 }
   
-function run_change() {    
-    browser.storage.local.get().then(run_convert, save_default_config);
+function run_change() {   
+    if (chrome != undefined) {
+        chrome.storage.local.get().then(run_convert, save_default_config);
+    }
 }
 
 function save_default_config(config) {
@@ -122,7 +125,9 @@ function save_default_config(config) {
                     dealPriceText, price_inside_buybox, hl-item__displayPrice,
                     sales-price, price-tag-fraction, price__fraction`
         }
-        browser.storage.local.set(default_settings)
+        if (chrome != undefined) {
+            chrome.storage.local.set(default_settings)
+        }
     }
 }
 
@@ -133,3 +138,18 @@ run_change();
        if (--i) loop(i); 
     }, 2500)
 })(30);
+
+module.exports = { 
+    unit_seconds: unit_seconds, 
+    days_work: days_work,
+    days: days,
+    hours: hours,
+    minutes: minutes,
+    trim: trim,
+    is_number: is_number,
+    secs_dwhms: secs_dwhms,
+    seconds_currency: seconds_currency,
+    get_cents: get_cents,
+    extract_prices: extract_prices,
+    parse_filter: parse_filter
+}
