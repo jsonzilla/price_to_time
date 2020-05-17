@@ -9,11 +9,11 @@
    <body> 
       <form>
          <section class="clear-options data-types">
-            <label>Salary: <input type="text" id="salary" name="salary"></label></br>
-            <label>Month hours: <input type="text" id="month_hours" name="month_hours"></label></br>
-            <label>Hour work per day: <input type="text" id="hour_work_per_day" name="hour_work_per_day"></label></br>
+            <label>Salary: <input type="text" id="salary" name="salary" required pattern="(\d[\.,\d]+)" maxlength="25"></label></br>
+            <label>Month hours: <input type="text" id="month_hours" name="month_hours" required pattern="(\d|\d[\.\d]+)" maxlength="25"></label></br>
+            <label>Hour work per day: <input type="text" id="hour_work_per_day" name="hour_work_per_day" required pattern="(\d|\d[\.\d]+)" maxlength="10"></label></br>
             <label>Filter:</label>
-            <textarea id="filter"></textarea>
+            <textarea id="filter" required maxlength="10000"></textarea>
          </section>      
          <input type="submit" value=" Save preferences " id="save-button"/>
       </form>
