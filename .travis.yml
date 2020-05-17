@@ -3,4 +3,11 @@ node_js:
   - "12.13"
 before_script:
   - npm install --save-dev jest
+  - npm install --global web-ext
+deploy:
+  provider: releases
+  api_key: GITHUB_TOKEN
+  file: "./web-ext-artifacts/price2time-*.zip"
+  skip_cleanup: true
+  draft: true
 
