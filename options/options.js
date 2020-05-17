@@ -14,10 +14,9 @@ function restoreOptions() {
     document.querySelector("#month_hours").value = result.month_hours || "220";
     document.querySelector("#hour_work_per_day").value = result.hour_work_per_day || "8.5";
     document.querySelector("#filter").value = result.filter || 
-        `a-color-price, offer-price, 
-        kfs-price, a-text-strike, price, new-price, a-price, 
-        dealPriceText, price_inside_buybox, hl-item__displayPrice,
-        sales-price, price-tag-fraction, price__fraction`
+      `a-color-price, offer-price, kfs-price, a-text-strike,price, new-price, 
+      dealPriceText, price_inside_buybox, hl-item__displayPrice,
+      sales-price, price-tag-fraction, price__fraction`
   }
 
   function onError(error) {
