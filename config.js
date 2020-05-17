@@ -6,10 +6,10 @@ module.exports = {
     overwriteDest: true,
   },
   ignoreFiles: [
-    'README.md'
-    'package.json'
+    'README.md',
+    'package.json',
     'package-lock.json',
     'yarn.lock',
-	'\*test/*.js'
+	  '\*test/*.js'
   ],
 };
