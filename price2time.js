@@ -147,7 +147,7 @@ function save_default_config(config) {
             hour_work_per_day : "8.5",
             filter : `a-color-price, offer-price, kfs-price, a-text-strike,price, new-price, 
                     dealPriceText, price_inside_buybox, hl-item__displayPrice,
-                    sales-price, price-tag-fraction, price__fraction`
+                    sales-price, price-tag-fraction, price__fraction, promotion-item__price`
         }
         if (chrome != undefined) {
             chrome.storage.local.set(default_settings)

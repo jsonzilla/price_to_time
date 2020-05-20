@@ -16,7 +16,7 @@ function restoreOptions() {
     document.querySelector("#filter").value = result.filter || 
       `a-color-price, offer-price, kfs-price, a-text-strike,price, new-price, 
       dealPriceText, price_inside_buybox, hl-item__displayPrice,
-      sales-price, price-tag-fraction, price__fraction`
+      sales-price, price-tag-fraction, price__fraction, promotion-item__price`
   }
 
   function onError(error) {
