@@ -10,7 +10,7 @@ An browser extension to give you knowledge about how much cost of your time to b
 # Test
 ```
 > npm install --save-dev jest
-> npmt test
+> npm test
 ```
 
 # Coverage
