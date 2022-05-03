@@ -1,5 +1,8 @@
 {
-  "scripts": {
-    "test": "jest"
-  }
+    "scripts": {
+        "test": "jest --detectOpenHandles --verbose --coverage --detectOpenHandles --forceExit"
+    },
+    "devDependencies": {
+        "jest": "^28.0.3"
+    }
 }
