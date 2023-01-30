@@ -3,6 +3,6 @@
         "test": "jest --detectOpenHandles --verbose --coverage --detectOpenHandles --forceExit"
     },
     "devDependencies": {
-        "jest": "^29.3.1"
+        "jest": "^29.4.1"
     }
 }
