@@ -3,8 +3,8 @@
   "description": "Give you knowledge about how much cost of your time to buy a product",
   "manifest_version": 2,
   "name": "Price2Time",
-  "version": "1.0.3",
-  "homepage_url": "https://github.com/amorvincitomnia/Price2Time/",
+  "version": "1.0.4",
+  "homepage_url": "https://github.com/jsonzilla/price_to_time/",
   "icons": {
     "48": "icons/icon-48.png"
   },
