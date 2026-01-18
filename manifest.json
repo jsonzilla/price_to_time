@@ -1,37 +1,38 @@
 {
-
-  "description": "Give you knowledge about how much cost of your time to buy a product",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Price2Time",
-  "version": "1.0.4",
+  "version": "1.0.5",
+  "description": "Give you knowledge about how much cost of your time to buy a product",
+  "permissions": [
+    "storage"
+  ],
   "homepage_url": "https://github.com/jsonzilla/price_to_time/",
   "icons": {
     "48": "icons/icon-48.png"
   },
-
   "content_scripts": [
     {
       "matches": [
-        "*://*.amazon.com.br/*", 
+        "*://*.amazon.com.br/*",
         "*://*.amazon.com/*",
-        "*://*.mercadolivre.com.br/*",
-        "*://*.submarino.com.br/*" 
+        "*://*.mercadolivre.com.br/*"
       ],
-      "js": ["price2time.js"]
+      "js": [
+        "price2time.js"
+      ]
     }
-  ], 
-
+  ],
   "options_ui": {
     "page": "options/options.html"
   },
-
-  "permissions": [   
-    "storage"
-  ],
-
   "browser_specific_settings": {
     "gecko": {
       "id": "cardos.jeison@gmail.com",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      },
       "strict_min_version": "57.0"
     }
   }
